@@ -1,35 +1,60 @@
 
-class Grocery:
+class Grocery_Trip:
+    
+    # MEMBER VARIABLES
+    cart_size = 0
+    store = ""
+    cart_items = []
+    price = 0
 
-    def __init__ (self, product, price, category):
-        self.product = product
+    # CONSTRUCTOR
+    def __init__(self, cart_size, store cart_items, price):
+        self.cart_size = cart_size
+        self.store = store
+        self.cart_items = cart_items
         self.price = price
-        self.category = category
 
-        #start of cart
-        self.cart_products = []
-        self.cart_price = []
+    # SETTER - update from outside code
+    def update_store(self, new_store):
+        self.store = new_store
+
+    # GETTER - specific functions
+    def add_to_cart (self, items_to_add, item_price):
+        self.cart_items = self.cart_items.append(items_to_add)
+        self.price = self.price + item_price
+        print ("Item added!")
+    
+    def display_items(self, cart_items, price):
+        print ("Items:", self.cart_items)
+        print ("Price (no tax):", self.price)
+        print ("Price (tax):", (self.price * 0.13) + self.price)
+
+# Depending on store --> fixed cart size, prices for categories
+def ask_user():
+    print ("1: Metro" + "\n" + "2: Walmart" + "\n" + "3: Superstore")
+    loc_store = input("Which store are you going to? (1/2/3) ")
+    
+    # do an error check here
+    if loc_store == 1:
+        loc_cart_size = 10
+        return loc_store, loc_cart_size
+    
+    elif loc_store == 2:
+        loc_cart_size = 15
+        return loc_store, loc_cart_size
+
+    elif loc_store == 3:
+        loc_cart_size = 20
+        return loc_store, loc_cart_size
+
+    else:
+        print ("No store selected")
 
 
-    def add_to_cart (self):
-        self.cart_products.append(self.product)
-        self.cart_price.append(self.price)
+#MAIN PROGRAM
+if __name__ == "__main__":
+    glo_store, glo_cart_size = ask_user()
 
-    def display_cart (self):
-        print ("Items: ",self.cart_products)
+    # will be stored in the constructor
+    to_do_trip = Grocery_Trip(glo_store, glo_cart_size, "", 0)
 
-
-#list of items
-i1 = Grocery("apple", 2, "fruits")
-i2 = Grocery("cherries", 3, "fruits")
-i3 = Grocery("milk", 4, "dairy")
-
-Grocery.add_to_cart(i1)
-Grocery.add_to_cart(i2)
-
-Grocery.display_cart(i1)
-Grocery.display_cart(i2)
-
-
-#seperate lists into categories of products, price, category in order
-#next step: change coding so the list doesn't restart everytime 
